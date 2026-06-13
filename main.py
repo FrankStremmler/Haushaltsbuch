@@ -1,29 +1,20 @@
 import sys
 import traceback
+import os
+from dotenv import load_dotenv
+# Laden der Umgebungsvariablen aus der .env-Datei
+load_dotenv()
 
-try:
-    from PySide6.QtWidgets import QApplication
-    # Importieren Sie das Fenster genau so, wie es bei Ihrem Einzeltest funktionierte
-    from views.main_window import MainWindow
-    from models.database import BudgetModel
-except ImportError as e:
-    print(f"Abbruch: Ein Modul konnte nicht geladen werden.\nDetails: {e}")
-    sys.exit(1)
+# try:
+from PySide6.QtWidgets import QApplication
+# Importieren Sie das Fenster genau so, wie es bei Ihrem Einzeltest funktionierte
+from views.main_window import MainWindow
+from models.database import BudgetModel
+from controllers.main_controller import MainController
+# except ImportError as e:
+#     print(f"Abbruch: Ein Modul konnte nicht geladen werden.\nDetails: {e}")
+#     sys.exit(1)
 
-# Minimaler Controller direkt integriert, um Importfehler zu minimieren
-class MainController:
-    def __init__(self, model, view):
-        self.model = model
-        self.view = view
-
-        # Sicherstellen, dass die Methoden auf der View auch existieren
-        if hasattr(self.view, 'btn_settings'):
-            self.view.btn_settings.clicked.connect(self.open_settings)
-        else:
-            print("Hinweis: btn_settings wurde in der View nicht gefunden.")
-
-    def open_settings(self):
-        print("Einstellungen angeklickt!")
 
 def main():
     # Schützt vor Abstürzen während der Qt-Initialisierung

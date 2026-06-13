@@ -5,8 +5,10 @@ from PySide6.QtCore import QSize, Qt
 from PySide6.QtWidgets import QApplication
 import sys
 
-SETTINGS_ICON_PATH = "assets/icons/settings_icon.svg"
-ANALYZE_ICON_PATH = "assets/icons/analyze_icon.svg"
+import constants as const
+
+SETTINGS_ICON_PATH = const.SETTINGS_ICON_PATH
+ANALYZE_ICON_PATH = const.ANALYZE_ICON_PATH
 
 
 class MainWindow(QMainWindow):

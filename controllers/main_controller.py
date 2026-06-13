@@ -16,7 +16,8 @@ class AnalysisWorker(QThread):
         super().__init__()
         self.file_path = file_path
         self.mime_type = mime_type
-        self.wrapper = AIPlatformWrapper(provider="gemini")
+        #self.wrapper = AIPlatformWrapper(provider="gemini")
+        self.wrapper = AIPlatformWrapper()
 
     def run(self):
         try:
@@ -32,7 +33,7 @@ class MainController:
         self.model = model
         self.view = view
         self.config_manager = ConfigManager()
-        self.view.btn_load.clicked.connect(self.start_receipt_analysis)
+        self.view.btn_analyze.clicked.connect(self.start_receipt_analysis)
         # Event: Zahnrad-Button im Hauptfenster öffnet die Einstellungen
         self.view.btn_settings.clicked.connect(self.open_settings)
 
@@ -62,7 +63,7 @@ class MainController:
         mime_type = "application/pdf"
 
         # UI in Lade-Zustand versetzen
-        self.view.set_loading(True)
+        self.view.set_loading_state(True)
 
         # Thread starten
         self.worker = AnalysisWorker(file_path, mime_type)
@@ -81,5 +82,5 @@ class MainController:
         self.view.refresh_ui()
 
     def on_analysis_error(self, error_msg):
-        self.view.set_loading(False)
+        self.view.set_loading_state(False)
         self.view.show_error_message(error_msg)
